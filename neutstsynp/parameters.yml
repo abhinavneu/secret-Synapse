@@ -1,0 +1,4 @@
+workspaceName: ${{ secrets.SYNAPSE_WORKSPACE }}
+resourceGroupName: ${{ secrets.RG_NAME }}
+subscriptions: ${{ secrets.RG_SUBSCRIPTION_ID }}
+AzureBlobStorageParquet_properties_typeProperties_serviceEndpoint: https://neudevwu2daadl01.blob.core.windows.net/
