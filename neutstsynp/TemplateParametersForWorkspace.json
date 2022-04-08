@@ -2,6 +2,12 @@
 	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
+		"resourceGroupName": {
+			"value": "neu-dev-data-rg"
+		},
+		"subscriptions": {
+			"value": "f48d9107-72e2-4044-b1c3-f6c32c6b0de7"
+		},
 		"workspaceName": {
 			"value": "neutstsynp"
 		},
