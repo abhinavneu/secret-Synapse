@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'neutstsynp-WorkspaceDefaultSqlServer'"
 		},
+		"linkedService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://neutstadlsgen2.dfs.core.windows.net"
+		},
 		"neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://neutstadlsgen2.dfs.core.windows.net"
@@ -20,78 +24,6 @@
 		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('workspaceName'), '/neutstsynp-WorkspaceDefaultSqlServer')]",
-			"type": "Microsoft.Synapse/workspaces/linkedServices",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"parameters": {
-					"DBName": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlDW",
-				"typeProperties": {
-					"connectionString": "[parameters('neutstsynp-WorkspaceDefaultSqlServer_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "AutoResolveIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/neutstsynp-WorkspaceDefaultStorage')]",
-			"type": "Microsoft.Synapse/workspaces/linkedServices",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url')]"
-				},
-				"connectVia": {
-					"referenceName": "AutoResolveIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
-			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"type": "Managed",
-				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 0
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
-			"type": "Microsoft.Synapse/workspaces/credentials",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"type": "ManagedIdentity",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('workspaceName'), '/test')]",
 			"type": "Microsoft.Synapse/workspaces/pipelines",
@@ -190,7 +122,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "neutstsynp-WorkspaceDefaultStorage",
+					"referenceName": "linkedService1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -210,7 +142,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/neutstsynp-WorkspaceDefaultStorage')]"
+				"[concat(variables('workspaceId'), '/linkedServices/linkedService1')]"
 			]
 		},
 		{
@@ -219,7 +151,7 @@
 			"apiVersion": "2019-06-01-preview",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "neutstsynp-WorkspaceDefaultStorage",
+					"referenceName": "linkedService1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -238,8 +170,99 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('workspaceId'), '/linkedServices/neutstsynp-WorkspaceDefaultStorage')]"
+				"[concat(variables('workspaceId'), '/linkedServices/linkedService1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/linkedService1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('linkedService1_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/neutstsynp-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('neutstsynp-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/neutstsynp-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
+			"type": "Microsoft.Synapse/workspaces/credentials",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {}
+			},
+			"dependsOn": []
 		}
 	]
 }

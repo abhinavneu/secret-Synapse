@@ -8,6 +8,9 @@
 		"neutstsynp-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
+		"linkedService1_properties_typeProperties_url": {
+			"value": "https://neutstadlsgen2.dfs.core.windows.net"
+		},
 		"neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://neutstadlsgen2.dfs.core.windows.net"
 		}
