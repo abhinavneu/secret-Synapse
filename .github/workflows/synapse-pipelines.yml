@@ -24,7 +24,7 @@ jobs:
     # Specify the path to the template parameter file.
           ParametersFile: ./neutstsynp/TemplateParametersForWorkspace.json
     # Specify deployment parameter values.
-    #      OverrideArmParameters: parameters.yml
+          OverrideArmParameters: parameters.yml
     # Provide the type of cloud environment. Valid values are: Azure Public, Azure China, Azure US Government, Azure Germany
           Environment: Azure Public
     # Provide the resource group of the target Synapse workspace.
