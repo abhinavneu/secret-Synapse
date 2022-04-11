@@ -18,6 +18,10 @@
 		"neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://neutstadlsgen2.dfs.core.windows.net"
+		},
+		"DelimitedText1_container_adls": {
+			"type": "string",
+			"defaultValue": "synapse"
 		}
 	},
 	"variables": {
@@ -132,7 +136,7 @@
 						"type": "AzureBlobFSLocation",
 						"fileName": "football_leagues.csv",
 						"folderPath": "input",
-						"fileSystem": "=:-container_adls"
+						"fileSystem": "[parameters('DelimitedText1_container_adls')]"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
