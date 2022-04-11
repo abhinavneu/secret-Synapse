@@ -132,7 +132,7 @@
 						"type": "AzureBlobFSLocation",
 						"fileName": "football_leagues.csv",
 						"folderPath": "input",
-						"fileSystem": "synapse"
+						"fileSystem": "=:-container_adls"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",

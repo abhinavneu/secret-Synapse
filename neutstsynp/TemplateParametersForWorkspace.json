@@ -19,6 +19,9 @@
 		},
 		"neutstsynp-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://neutstadlsgen2.dfs.core.windows.net"
+		},
+		"DelimitedText1_container_adls":{
+			"value": "syntest"
 		}
 	}
 }
